@@ -1,0 +1,37 @@
+✅ Step 1: Generate RPC files
+rpcgen task_scheduler.x
+✅ Step 2: Compile Server
+gcc -o server server.c task_scheduler_svc.c task_scheduler_xdr.c -lnsl
+
+👉 If error occurs, use:
+
+gcc -o server server.c task_scheduler_svc.c task_scheduler_xdr.c -ltirpc
+✅ Step 3: Compile Client
+gcc -o client client.c task_scheduler_clnt.c task_scheduler_xdr.c -lnsl
+
+👉 Or:
+
+gcc -o client client.c task_scheduler_clnt.c task_scheduler_xdr.c -ltirpc
+✅ Step 4: Start RPC Bind Service
+sudo rpcbind
+
+OR
+
+sudo systemctl start rpcbind
+✅ Step 5: Run Server
+./server
+✅ Step 6: Run Client (in another terminal)
+./client localhost 1 "ls"
+
+👉 More examples:
+
+./client localhost 2 "date"
+./client localhost 3 "whoami"
+⚡ One-Line Flow (Quick Use)
+rpcgen task_scheduler.x
+gcc -o server server.c task_scheduler_svc.c task_scheduler_xdr.c -lnsl
+gcc -o client client.c task_scheduler_clnt.c task_scheduler_xdr.c -lnsl
+sudo rpcbind
+./server
+# open new terminal
+./client localhost 1 "ls"
