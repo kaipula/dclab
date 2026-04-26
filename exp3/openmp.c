@@ -12,11 +12,12 @@ void execute_task(Task t) {
     int thread_id = omp_get_thread_num();
     printf("[Thread %d] Starting Task %d (takes %ds)...\n", thread_id, t.id, t.duration);
     sleep(t.duration);
-    printf("[Thread %d] Completed Task %d\n", thread_id, t.id);
+    printf("[Thread %d] Completed Task %d\n", thread_ibd, t.id);
 }
 
 int main() {
-    int num_tasks = 10;
+    int num_tasks;
+    scanf("%d",&num_tasks);
     Task tasks[num_tasks];
 
     for (int i = 0; i < num_tasks; i++) {
@@ -24,7 +25,7 @@ int main() {
         tasks[i].duration = (rand() % 3) + 1;
     }
 
-    printf("Starting Scheduler with %d threads...\n", omp_get_max_threads());
+    printf("Starting Scheduler with %d threads and %d tasks...\n", omp_get_max_threads(),num_tasks);
 
     #pragma omp parallel
     {
